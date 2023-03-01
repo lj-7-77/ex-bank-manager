@@ -16,13 +16,18 @@ final class Node<T> {
     }
 }
 
-final class LinkedList {
-    var head: Node<String>?
-    var tail: Node<String>?
-    var newNode: Node<String>?
+final class LinkedList<T> {
+    var head: Node<T>?
+    var tail: Node<T>?
+    var newNode: Node<T>?
+    var count: Int = 0
+    var firstData: T? {
+        return head?.data
+    }
     
-    func enqueue(data: String) {
-        newNode = Node<String>(data: data, next: nil)
+    func insertLast(data: T) {
+        newNode = Node<T>(data: data, next: nil)
+        count += 1
         if head == nil {
             head = newNode
             return
@@ -36,25 +41,18 @@ final class LinkedList {
         tail = node?.next
     }
     
-    func dequeue() {
-        var firstNode = head     //첫번째노드 찾기
+    func removeFirst() {
+        let firstNode = head
         if head == nil {
             print("삭제할 노드가 없습니다.")
         }
         head = firstNode?.next    //head가 두번째 노드를 가리키도록 함
-        firstNode?.next = nil    //첫번째 노드의 next에 nil
+        firstNode?.next = nil
     }
     
-    func clear() {
+    func removeAll() {
         head = nil
         tail = head
-    }
-    
-    func peek() -> Node<String>? { //top을 반환한다. 삭제 X
-        guard let firstNode = head else {
-            return nil
-        }
-        return firstNode
     }
     
     func isEmpty() -> Bool {
